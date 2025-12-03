@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Organize.Core.Enums
+namespace Contatus.Core.Enums
 {
     public enum Tipo
     {

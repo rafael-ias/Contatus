@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Itens de Solução/">
+    <File Path="global.json" />
+  </Folder>
   <Project Path="Contatus.Api/Contatus.Api.csproj" />
   <Project Path="Contatus.Core/Contatus.Core.csproj" />
 </Solution>

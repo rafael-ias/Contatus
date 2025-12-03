@@ -1,0 +1,8 @@
+USE [master];
+GO
+
+ALTER DATABASE [contatusdb] SET SINGLE_USER WITH ROLLBACK IMEDIATE;
+GO
+
+DROP DATABASE [contatusdb];
+GO
