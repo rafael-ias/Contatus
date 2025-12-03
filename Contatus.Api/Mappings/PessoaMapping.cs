@@ -30,8 +30,7 @@ namespace Contatus.Api.Mappings
             builder.HasMany(x => x.Telefones)
                 .WithOne(t => t.Pessoa)
                 .HasForeignKey(t => t.PessoaId)
-                .IsRequired(true)
-                .OnDelete(DeleteBehavior.Cascade);
+                .IsRequired(true);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Contatus.Core.Models
         public string CPF { get; set; } = String.Empty;
         public DateTime? DataDeNascimento { get; set; }
         public bool EstaAtivo { get; set; }
-        public ICollection<Telefone> Telefones { get; set; } = new List<Telefone>();
+        public ICollection<Telefone> Telefones { get; } = new List<Telefone>();
         public string UserId { get; set; } = String.Empty;
     }
 }

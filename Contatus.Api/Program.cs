@@ -34,7 +34,7 @@ app.UseSwaggerUI();
 //Versionamento para o caso de atualizações futuras não quebrarem projetos que utilizam dessa API
 app.MapPost(
     "/v1/pessoas",
-    (Request request, Handler handler) => Handler.Handle(request))
+    (Request request, Handler handler) => handler.Handle(request))
     .WithName("PessoasV1Create")
     .Produces<Response>();
 
@@ -59,11 +59,27 @@ public class Response
 
 public class Handler
 {
-    public static Response Handle(Request request)
+    private readonly AppDbContext _context;
+    public Handler(AppDbContext context)
     {
+        _context = context;
+    }
+    public Response Handle(Request request)
+    {
+        var pessoa = new Pessoa 
+        {
+            Nome = request.Nome,
+            CPF = request.CPF,
+            EstaAtivo = request.EstaAtivo,
+            UserId = request.UserId
+        };
+
+        _context.Pessoas.Add(pessoa);
+        _context.SaveChanges();
+
         return new Response
         {
-            Id = 4,
+            Id = request.Id,
             Nome = request.Nome
         };
     }
