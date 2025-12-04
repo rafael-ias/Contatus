@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Contatus.Core.Models;
 
-namespace Contatus.Api.Mappings
+namespace Contatus.Api.Data.Mappings
 {
     public class PessoaMapping : IEntityTypeConfiguration<Pessoa>
     {

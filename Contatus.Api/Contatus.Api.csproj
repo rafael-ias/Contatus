@@ -24,4 +24,8 @@
     <ProjectReference Include="..\Contatus.Core\Contatus.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Endpoints\Telefones\" />
+  </ItemGroup>
+
 </Project>
