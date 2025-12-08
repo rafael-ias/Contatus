@@ -12,9 +12,9 @@ namespace Contatus.Core.Responses
         private readonly int _code;
 
         [JsonConstructor]
-        public Response() => _code = Configuration.DefaultStatusCode;
+        public Response() => _code = Configuration.StatusCode;
 
-        public Response(TData? data, int code = Configuration.DefaultStatusCode, string? message = null)
+        public Response(TData? data, int code = Configuration.StatusCode, string? message = null)
         {
             Data = data;
             _code = code;

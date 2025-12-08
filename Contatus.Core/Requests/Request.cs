@@ -8,6 +8,6 @@ namespace Contatus.Core.Requests
 {
     public abstract class Request
     {
-        public string UserId { get; set; } = string.Empty;
+        public string UserId { get; set; } = "rafael.teste@gmail.com";//string.Empty;
     }
 }

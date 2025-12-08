@@ -6,22 +6,27 @@ using Contatus.Core.Responses;
 
 namespace Contatus.Api.Endpoints.Pessoas
 {
-    public class CreatePessoaEndpoint : IEndpoint
+    public class GetPessoaByIdEndpoint : IEndpoint
     {
         public void Map(IEndpointRouteBuilder app)
-            => app.MapPost(
-                "/v1/pessoas/",
+            => app.MapGet(
+                "/v1/pessoas/{id}",
                 HandleAsync
             )
-            .WithName("Pessoas: Create")
+            .WithName("Pessoas: GetById")
             .Produces<Response<Pessoa?>>();
 
-        private static async Task<IResult> HandleAsync(IPessoaHandler handler, CreatePessoaRequest request)
+        private static async Task<IResult> HandleAsync(IPessoaHandler handler, int id)
         {
-            var result = await handler.CreateAsync(request);
+            var request = new GetPessoaByIdRequest
+            {
+                Id = id
+            };
+
+            var result = await handler.GetByIdAsync(request);
 
             return result.IsSuccess
-            ? Results.Created($"/{result.Data?.Id}", result)
+            ? Results.Ok(result)
             : Results.BadRequest(result);
         }
     }

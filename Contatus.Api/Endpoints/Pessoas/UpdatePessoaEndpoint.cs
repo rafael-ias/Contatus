@@ -6,22 +6,23 @@ using Contatus.Core.Responses;
 
 namespace Contatus.Api.Endpoints.Pessoas
 {
-    public class CreatePessoaEndpoint : IEndpoint
+    public class UpdatePessoaEndpoint : IEndpoint
     {
         public void Map(IEndpointRouteBuilder app)
-            => app.MapPost(
-                "/v1/pessoas/",
+            => app.MapPut(
+                "/v1/pessoas/{id}",
                 HandleAsync
             )
-            .WithName("Pessoas: Create")
+            .WithName("Pessoas: Update")
             .Produces<Response<Pessoa?>>();
 
-        private static async Task<IResult> HandleAsync(IPessoaHandler handler, CreatePessoaRequest request)
+        private static async Task<IResult> HandleAsync(IPessoaHandler handler, UpdatePessoaRequest request, int id)
         {
-            var result = await handler.CreateAsync(request);
+            request.Id = id;
+            var result = await handler.UpdateAsync(request);
 
             return result.IsSuccess
-            ? Results.Created($"/{result.Data?.Id}", result)
+            ? Results.Ok(result)
             : Results.BadRequest(result);
         }
     }
