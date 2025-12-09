@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Contatus.Core.Models
 {
@@ -11,6 +12,8 @@ namespace Contatus.Core.Models
         public Tipo Tipo { get; set; } = Tipo.Celular;
         public string Numero { get; set; } = String.Empty;
         public int PessoaId { get; set; }
+
+        [JsonIgnore]
         public Pessoa Pessoa { get; set; } = null!;
         public string UserId { get; set; } = String.Empty;
     }

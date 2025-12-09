@@ -66,46 +66,6 @@ namespace Contatus.Api.Handlers
             }
         }
 
-        async Task<PagedResponse<List<Pessoa>?>> IPessoaHandler.GetAllAsync(GetAllPessoasRequest request)
-        {
-            try
-            {
-                var query = _context.Pessoas
-                    .AsNoTracking()
-                    .Where(x => x.UserId == request.UserId)
-                    .OrderBy(x => x.Nome);
-
-                var pessoas = await query
-                    .Skip((request.PageNumber - 1) * request.PageSize)
-                    .Take(request.PageSize)
-                    .ToListAsync();
-
-                var count = await query.CountAsync();
-
-                return new PagedResponse<List<Pessoa>?>(pessoas, count, request.PageNumber, request.PageSize);
-            }
-            catch
-            {
-                return new PagedResponse<List<Pessoa>?>(null, 500, "Nao foi possivel recuperar a lista de Pessoas.");
-            }
-        }
-
-        async Task<Response<Pessoa?>> IPessoaHandler.GetByIdAsync(GetPessoaByIdRequest request)
-        {
-            try
-            {
-                var pessoa = await _context.Pessoas.AsNoTracking().FirstOrDefaultAsync(x => x.Id == request.Id && x.UserId == request.UserId);
-
-                return pessoa is null
-                    ? new Response<Pessoa?>(null, 404, "Pessoa nao encontrada.")
-                    : new Response<Pessoa?>(pessoa);
-            }
-            catch
-            {
-                return new Response<Pessoa?>(null, 500, "Nao foi possivel recuperar o cadastro da Pessoa.");
-            }
-        }
-
         async Task<Response<Pessoa?>> IPessoaHandler.UpdateAsync(UpdatePessoaRequest request)
         {
             try
@@ -132,6 +92,50 @@ namespace Contatus.Api.Handlers
             catch
             {
                 return new Response<Pessoa?>(null, 500, "Nao foi possivel atualizar o cadastro da Pessoa.");
+            }
+        }
+
+        async Task<PagedResponse<List<Pessoa>?>> IPessoaHandler.GetAllAsync(GetAllPessoasRequest request)
+        {
+            try
+            {
+                var query = _context.Pessoas
+                    .AsNoTracking()
+                    .Where(x => x.UserId == request.UserId)
+                    .Include(x => x.Telefones)
+                    .OrderBy(x => x.Nome);
+
+                var pessoas = await query
+                    .Skip((request.PageNumber - 1) * request.PageSize)
+                    .Take(request.PageSize)
+                    .ToListAsync();
+
+                var count = await query.CountAsync();
+
+                return new PagedResponse<List<Pessoa>?>(pessoas, count, request.PageNumber, request.PageSize);
+            }
+            catch
+            {
+                return new PagedResponse<List<Pessoa>?>(null, 500, "Nao foi possivel recuperar a lista de Pessoas.");
+            }
+        }
+
+        async Task<Response<Pessoa?>> IPessoaHandler.GetByIdAsync(GetPessoaByIdRequest request)
+        {
+            try
+            {
+                var pessoa = await _context.Pessoas
+                    .AsNoTracking()
+                    .Include(x => x.Telefones)
+                    .FirstOrDefaultAsync(x => x.Id == request.Id && x.UserId == request.UserId);
+
+                return pessoa is null
+                    ? new Response<Pessoa?>(null, 404, "Pessoa nao encontrada.")
+                    : new Response<Pessoa?>(pessoa);
+            }
+            catch
+            {
+                return new Response<Pessoa?>(null, 500, "Nao foi possivel recuperar o cadastro da Pessoa.");
             }
         }
     }

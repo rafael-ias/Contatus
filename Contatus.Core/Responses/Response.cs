@@ -25,6 +25,6 @@ namespace Contatus.Core.Responses
         public string? Message { get; set; }
 
         [JsonIgnore]
-        public bool IsSuccess => _code is 200 and <= 299;
+        public bool IsSuccess => _code is >= 200 and <= 299;
     }
 }

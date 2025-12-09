@@ -23,7 +23,7 @@ builder.Services.AddDbContext<AppDbContext>(
 
 builder.Services.AddEndpointsApiExplorer();
 
-//Front para exploração da API
+//Front para exploraï¿½ï¿½o da API
 //Full Qualified Name
 builder.Services.AddSwaggerGen(x =>
 {
@@ -31,6 +31,15 @@ builder.Services.AddSwaggerGen(x =>
 });
 
 builder.Services.AddTransient<IPessoaHandler, PessoaHandler>();
+builder.Services.AddTransient<ITelefoneHandler, TelefoneHandler>();
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler =
+            System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.WriteIndented = true;
+    });
 
 var app = builder.Build();
 

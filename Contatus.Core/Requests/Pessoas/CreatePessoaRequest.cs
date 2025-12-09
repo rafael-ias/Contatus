@@ -10,8 +10,6 @@ namespace Contatus.Core.Requests.Pessoas
 {
     public class CreatePessoaRequest : Request
     {
-        public int Id { get; set; }
-
         //Data Annotations
         [Required(ErrorMessage = "Nome Inválido")]
         [MaxLength(255, ErrorMessage = "Nome deve ter no máximo 255 caracteres")]

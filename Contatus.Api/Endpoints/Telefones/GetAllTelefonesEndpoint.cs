@@ -2,26 +2,24 @@
 using Contatus.Core;
 using Contatus.Core.Handlers;
 using Contatus.Core.Models;
-using Contatus.Core.Requests.Pessoas;
+using Contatus.Core.Requests.Telefones;
 using Contatus.Core.Responses;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
-namespace Contatus.Api.Endpoints.Pessoas
+namespace Contatus.Api.Endpoints.Telefones
 {
-    public class GetAllPessoasEndpoint : IEndpoint
+    public class GetAllTelefonesEndpoint : IEndpoint
     {
         public void Map(IEndpointRouteBuilder app)
             => app.MapGet(
-                "/v1/pessoas/",
+                "/v1/telefones/",
                 HandleAsync
             )
-            .WithName("Pessoas: GetAll")
-            .Produces<PagedResponse<List<Pessoa>?>>();
+            .WithName("Telefones: GetAll")
+            .Produces<PagedResponse<List<Telefone>?>>();
 
-        private static async Task<IResult> HandleAsync(IPessoaHandler handler, int pageNumber = Configuration.PageNumber, int pageSize = Configuration.PageSize)
+        private static async Task<IResult> HandleAsync(ITelefoneHandler handler, int pageNumber = Configuration.PageNumber, int pageSize = Configuration.PageSize)
         {
-            var request = new GetAllPessoasRequest
+            var request = new GetAllTelefonesRequest
             {
                 PageNumber = pageNumber,
                 PageSize = pageSize

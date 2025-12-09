@@ -1,5 +1,6 @@
 ﻿using Contatus.Api.Common.Api;
 using Contatus.Api.Endpoints.Pessoas;
+using Contatus.Api.Endpoints.Telefones;
 using Contatus.Core.Handlers;
 using Contatus.Core.Models;
 using Contatus.Core.Requests.Pessoas;
@@ -17,11 +18,11 @@ namespace Contatus.Api.Endpoints
             new GetAllPessoasEndpoint().Map(app);
             new GetPessoaByIdEndpoint().Map(app);
 
-            //new CreateTelefoneEndpoint().Map(app);
-            //new UpdateTelefoneEndpoint().Map(app);
-            //new DeleteTelefoneEndpoint().Map(app);
-            //new GetAllTelefonesEndpoint().Map(app);
-            //new GetTelefoneByIdEndpoint().Map(app);
+            new CreateTelefoneEndpoint().Map(app);
+            new UpdateTelefoneEndpoint().Map(app);
+            new DeleteTelefoneEndpoint().Map(app);
+            new GetAllTelefonesEndpoint().Map(app);
+            new GetTelefoneByIdEndpoint().Map(app);
         }
     }
 }
